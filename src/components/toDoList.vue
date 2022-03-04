@@ -1,4 +1,5 @@
 <script>
+
 let storeDatas;
 // get array data from local storage
 storeDatas = JSON.parse(localStorage.getItem("toDoList"));
@@ -14,6 +15,7 @@ export default {
   },
 
   methods: {
+
     // submit task
     submitTask() {
       if (this.task.length === 0) {
@@ -38,9 +40,13 @@ export default {
 
     // delete task
     deleteTask(index) {
-      this.tasks.splice(index, 1);
-      // delete array data from local storage
-      localStorage.setItem("toDoList", JSON.stringify(this.tasks));
+
+        if(confirm('Are you sure?')) {
+          this.tasks.splice(index, 1);
+          // delete array data from local storage
+          localStorage.setItem("toDoList", JSON.stringify(this.tasks));
+        }
+
     },
     // edit task
     editTask(index) {
@@ -96,7 +102,7 @@ export default {
           </td>
           <td
             style="text-align: center; cursor: pointer"
-            @click="deleteTask(index)"
+             @click="deleteTask(index)" 
           >
             <div>
               <img

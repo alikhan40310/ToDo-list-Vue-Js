@@ -34,6 +34,15 @@ npm run build
 npm run lint
 ```
 # aboutToDoApp
-It's a simple toDoApp user can add delete also update the item in table 
-using bootstrap to make responsive also using bootsrtap tables and button 
+The awesome toDoApp using vue JS framework
+# BootStrap
+Design the templete using Bootstrap.
+also fully responsive on mobile view.
+# Local Storage
+when user can add, delete, update data. It'll also be updated in local storage
+as well.
+# ConfirmAlertonDelete
+when user can delete any item from table the alert popUp message generated.
+If user ok then current table row deleted.
+
 
