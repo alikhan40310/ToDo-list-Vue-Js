@@ -1,30 +1,46 @@
 <script>
     export default {
         name: 'ToDoList',
-        props: {
-            msg: String,
-        },
         data() {
             return {
                 task: '',
-                tasks: [
-                   
-                ],
+                tasks: [],
+                editedTask: null,
+                availableStatuses: ['to-do', 'in-progress', 'finished' ]
             }
         },
         methods: {
+            // submit task
             submitTask() {
                 if (this.task.length === 0) {
                     return;
                 }
-                this.tasks.push({
-                    name: this.task,
-                    status: 'to-do',
-                });
+
+                if(this.editedTask === null) {
+                    this.tasks.push({
+                        name: this.task,
+                        status: 'to-do',
+                    });
+                }
+                else {
+                    this.tasks[this.editedTask].name = this.task;
+                    this.editedTask = null;
+                }
+                this.task = '';
+            },
+            // delete task
+            deleteTask(index) {
+                this.tasks.splice(index, 1);
+            },
+            // edit task
+            editTask(index) {
+                    
+                    this.task = this.tasks[index].name;
+                    this.editedTask = index;
             }
+
         }
     }
-
  
 </script>
 
@@ -41,7 +57,7 @@
             <thead>
                 <tr>
                     <th scope="col">Task</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Type</th>
                     <th scope="col" class="text-center">#</th>
                     <th scope="col" class="text-center">#</th>
                 </tr>
@@ -49,13 +65,15 @@
             <tbody>
                 <tr v-for="(task, index) in tasks" :key="index">
                     <td>{{task.name}}</td>
-                    <td>{{task.status}}</td>
-                    <td style="text-align: center;">
+                    <td>
+                        <span class="pointer">{{task.status}}</span>
+                    </td>
+                    <td @click="editTask(index)" style="text-align: center;cursor: pointer;">
                         <div>
                             <img width="20" height="20" src="../components/pen.png" alt="pen">
                         </div>
                     </td>
-                    <td style="text-align: center;"> 
+                    <td  style="text-align: center;cursor: pointer;" @click="deleteTask(index)"> 
                         <div>
                             <img width="20" height="20" src="../components/recycle.png" alt="pen">
                         </div>
@@ -81,4 +99,5 @@
         width: 100%;
         height: 100%;
     }
+    .pointer{cursor: pointer;}
 </style>
