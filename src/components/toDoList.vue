@@ -1,21 +1,28 @@
 <script>
+    
+    let storeDatas;
+    // get array data from local storage
+        storeDatas = JSON.parse(localStorage.getItem('toDoList'));
+    
+
     export default {
         name: 'ToDoList',
         data() {
             return {
                 task: '',
-                tasks: [],
+                tasks: storeDatas ? storeDatas : [],
                 editedTask: null,
-                availableStatuses: ['to-do', 'in-progress', 'finished' ]
             }
+
         },
+
         methods: {
             // submit task
             submitTask() {
+
                 if (this.task.length === 0) {
                     return;
                 }
-
                 if(this.editedTask === null) {
                     this.tasks.push({
                         name: this.task,
@@ -26,17 +33,22 @@
                     this.tasks[this.editedTask].name = this.task;
                     this.editedTask = null;
                 }
+
+                // save array data in local storage
+                localStorage.setItem('toDoList', JSON.stringify(this.tasks));
+
+                // clear input
                 this.task = '';
             },
+            
             // delete task
             deleteTask(index) {
                 this.tasks.splice(index, 1);
             },
             // edit task
             editTask(index) {
-                    
-                    this.task = this.tasks[index].name;
-                    this.editedTask = index;
+                this.task = this.tasks[index].name;
+                this.editedTask = index;
             }
 
         }
@@ -50,7 +62,7 @@
         <h2>My ToDo App</h2>
         <div class="d-flex gap-2">
             <input v-model="task" type="text" placeholder="Enter Value" class="form-control">
-            <button @click="submitTask" class="btn btn-warning rounded-1">submit</button>
+            <button @click="submitTask" class="btn btn-warning rounded-1">Submit</button>
         </div>
         <!-- using bootstrap table -->
         <table class="table table-bordered mt-5">
@@ -58,15 +70,15 @@
                 <tr>
                     <th scope="col">Task</th>
                     <th scope="col">Type</th>
-                    <th scope="col" class="text-center">#</th>
-                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">Edit</th>
+                    <th scope="col" class="text-center">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(task, index) in tasks" :key="index">
                     <td>{{task.name}}</td>
                     <td>
-                        <span class="pointer">{{task.status}}</span>
+                        {{task.status}}
                     </td>
                     <td @click="editTask(index)" style="text-align: center;cursor: pointer;">
                         <div>
@@ -87,6 +99,9 @@
 </template>
 
 <style scoped>
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
     h2{
         margin-top: 6rem;
         margin-bottom: 2rem;
