@@ -2,7 +2,7 @@
     
     let storeDatas;
     // get array data from local storage
-        storeDatas = JSON.parse(localStorage.getItem('toDoList'));
+    storeDatas = JSON.parse(localStorage.getItem('toDoList'));
     
 
     export default {
@@ -44,6 +44,8 @@
             // delete task
             deleteTask(index) {
                 this.tasks.splice(index, 1);
+                // delete array data from local storage
+                localStorage.setItem('toDoList', JSON.stringify(this.tasks));
             },
             // edit task
             editTask(index) {
