@@ -1,8 +1,4 @@
 <script>
-let storeDatas;
-// get array data from local storage
-storeDatas = JSON.parse(localStorage.getItem("toDoList"));
-
 export default {
   name: "ToDoList",
   components: {},
@@ -12,65 +8,17 @@ export default {
   },
   data() {
     return {
-      tasks: storeDatas ? storeDatas : [],
+      tasks: [],
       editedTask: null,
     };
   },
 
-  methods: {
-    // submit task
-    submitTask() {
-      if (this.task.length === 0) {
-        return;
-      }
-      if (this.editedTask === null) {
-        this.tasks.push({
-          name: this.task,
-          status: "to-do",
-        });
-      } else {
-        this.tasks[this.editedTask].name = this.task;
-        this.editedTask = null;
-      }
-
-      // save array data in local storage
-      localStorage.setItem("toDoList", JSON.stringify(this.tasks));
-
-      // clear input
-      this.task = "";
-    },
-
-    // delete task
-    deleteTask(index) {
-      if (confirm("Are you sure?")) {
-        this.tasks.splice(index, 1);
-        // delete array data from local storage
-        localStorage.setItem("toDoList", JSON.stringify(this.tasks));
-      }
-    },
-    // edit task
-    editTask(index) {
-      this.task = this.tasks[index].name;
-      this.editedTask = index;
-    },
-  },
+  methods: {},
 };
 </script>
 
 <template>
   <div class="container">
-    <!-- <h2>My ToDo App</h2>
-    <form @submit.prevent="$emit('functionTask', task)">
-      <div class="d-flex gap-2">
-        <input
-          v-model="task"
-          type="text"
-          placeholder="Enter Value"
-          class="form-control"
-        />
-        <button class="btn btn-warning rounded-1">Submit</button>
-      </div>
-    </form> -->
     <!-- using bootstrap table -->
     <table class="table table-bordered mt-5">
       <thead>
@@ -82,13 +30,13 @@ export default {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(task, index) in tasks" :key="index">
+        <tr v-for="(task, index) in todos" :key="index">
           <td>{{ task.name }}</td>
           <td>
             {{ task.status }}
           </td>
           <td
-            @click="editTask(index)"
+            @click="$emit('editParams', index)"
             style="text-align: center; cursor: pointer"
           >
             <div>
@@ -102,7 +50,7 @@ export default {
           </td>
           <td
             style="text-align: center; cursor: pointer"
-            @click="deleteTask(index)"
+            @click="$emit('deleteParams', index)"
           >
             <div>
               <img
