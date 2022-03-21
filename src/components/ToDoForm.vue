@@ -8,7 +8,6 @@ export default {
   components: {},
   props: {
     task: String,
-    todos: Array,
   },
   data() {
     return {
@@ -59,7 +58,7 @@ export default {
 
 <template>
   <div class="container">
-    <!-- <h2>My ToDo App</h2>
+    <h2 class="mb-5">My ToDo App</h2>
     <form @submit.prevent="$emit('functionTask', task)">
       <div class="d-flex gap-2">
         <input
@@ -70,9 +69,9 @@ export default {
         />
         <button class="btn btn-warning rounded-1">Submit</button>
       </div>
-    </form> -->
+    </form>
     <!-- using bootstrap table -->
-    <table class="table table-bordered mt-5">
+    <!-- <table class="table table-bordered mt-5">
       <thead>
         <tr>
           <th scope="col">Task</th>
@@ -115,27 +114,8 @@ export default {
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </template>
 
-<style>
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-h2 {
-  margin-top: 6rem;
-  margin-bottom: 2rem;
-}
-.ItemCenter {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-.pointer {
-  cursor: pointer;
-}
-</style>
+<style></style>
