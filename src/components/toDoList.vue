@@ -1,7 +1,6 @@
 <script>
 export default {
   name: "ToDoList",
-  components: {},
   props: {
     task: String,
     todos: Array,
@@ -57,7 +56,7 @@ export default {
                 width="20"
                 height="20"
                 src="../components/icons/recycle.png"
-                alt="pen"
+                alt="delete"
               />
             </div>
           </td>

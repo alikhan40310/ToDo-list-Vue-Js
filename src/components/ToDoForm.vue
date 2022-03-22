@@ -1,7 +1,6 @@
 <script>
 export default {
-  name: "ToDoList",
-  components: {},
+  name: "ToDoForm",
   props: {
     task: String,
   },

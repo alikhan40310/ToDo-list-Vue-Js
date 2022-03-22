@@ -37,7 +37,9 @@ export default {
         this.todos[this.editedTask].name = task;
         this.editedTask = null;
       }
-
+      // empty the input on edit
+      this.task = "";
+      console.log("task submit", this.task);
       localStorage.setItem("toDoList", JSON.stringify(this.todos));
     },
     DeleteTask(index) {
